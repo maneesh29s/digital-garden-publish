@@ -15,7 +15,7 @@ const config: QuartzConfig = {
       provider: "plausible",
     },
     locale: "en-US",
-    baseUrl: "https://maneesh29s.github.io/quartz",
+    baseUrl: "https://maneesh29s.github.io/digital-garden-publish/",
     ignorePatterns: ["private", "templates", "*/README.md", ".obsidian", "notebooks"],
     defaultDateType: "created",
     theme: {
