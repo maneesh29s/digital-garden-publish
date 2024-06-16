@@ -16,7 +16,7 @@ const config: QuartzConfig = {
     },
     locale: "en-US",
     baseUrl: "https://maneesh29s.github.io/quartz",
-    ignorePatterns: ["private", "templates", "README", ".obsidian", "notebooks"],
+    ignorePatterns: ["private", "templates", "*/README.md", ".obsidian", "notebooks"],
     defaultDateType: "created",
     theme: {
       fontOrigin: "googleFonts",
