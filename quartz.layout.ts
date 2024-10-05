@@ -5,7 +5,23 @@ import * as Component from "./quartz/components"
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
-  afterBody: [],
+  afterBody: [
+    Component.OnlyFor( 
+      { titles: ["Digital Garden"]},
+      Component.RecentNotes({ 
+        title: "Recent Notes",  
+        showTags: false,
+        limit: 5,
+      }),
+    ),
+    Component.OnlyFor( 
+      { titles: ["Digital Garden"]},
+      Component.MobileOnly(Component.Explorer({
+        folderClickBehavior: "link",
+        useSavedState: false,
+      })),
+    )
+  ],
   footer: Component.Footer({
     links: {
       GitHub: "https://github.com/jackyzha0/quartz",
@@ -27,7 +43,10 @@ export const defaultContentPageLayout: PageLayout = {
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
     Component.Darkmode(),
-    Component.DesktopOnly(Component.Explorer()),
+    Component.DesktopOnly(Component.Explorer({
+      folderClickBehavior: "link",
+      useSavedState: false,
+    })),
   ],
   right: [
     Component.TagList(),
@@ -39,7 +58,6 @@ export const defaultContentPageLayout: PageLayout = {
       }
     }),
     Component.DesktopOnly(Component.TableOfContents()),
-    Component.Backlinks(),
   ],
 }
 
@@ -51,7 +69,10 @@ export const defaultListPageLayout: PageLayout = {
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
     Component.Darkmode(),
-    Component.DesktopOnly(Component.Explorer()),
+    Component.DesktopOnly(Component.Explorer({
+      folderClickBehavior: "link",
+      useSavedState: false,
+    })),
   ],
   right: [],
 }
