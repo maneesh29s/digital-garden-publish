@@ -28,7 +28,7 @@ export default ((opts?: Partial<FolderContentOptions>) => {
     const folderSlug = stripSlashes(simplifySlug(fileData.slug!))
     const allPagesInFolder = allFiles.filter((file) => {
       const fileSlug = stripSlashes(simplifySlug(file.slug!))
-      const prefixed = fileSlug.startsWith(folderSlug) && fileSlug !== folderSlug
+      const prefixed = path.dirname(fileSlug) == folderSlug
       const folderParts = folderSlug.split(path.posix.sep)
       const fileParts = fileSlug.split(path.posix.sep)
       const isDirectChild = fileParts.length === folderParts.length + 1
