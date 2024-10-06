@@ -12,6 +12,10 @@ export const sharedPageComponents: SharedLayout = {
         title: "Recent Notes",  
         showTags: false,
         limit: 5,
+        filter: (node) => {
+            // exclude folder pages
+            return ! node.filePath?.endsWith('index.md')
+          },
       }),
     ),
     Component.OnlyFor( 
