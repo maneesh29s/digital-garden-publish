@@ -1,4 +1,4 @@
 [submodule "content"]
 	path = content
-	url = https://github.com/maneesh29s/digital-garden.git
+	url = https://github.com/maneesh29s/digital-garden-notes.git
 	branch = main
