@@ -1,0 +1,53 @@
+diff --git a/quartz.config.ts b/quartz.config.ts
+index e30b296..2836dbc 100644
+--- a/quartz.config.ts
++++ b/quartz.config.ts
+@@ -56,7 +56,7 @@ const config: QuartzConfig = {
+     transformers: [
+       Plugin.FrontMatter(),
+       Plugin.CreatedModifiedDate({
+-        priority: ["frontmatter", "filesystem"],
++        priority: ["submodule", "frontmatter", "filesystem"],
+       }),
+       Plugin.SyntaxHighlighting({
+         theme: {
+diff --git a/quartz/plugins/transformers/lastmod.ts b/quartz/plugins/transformers/lastmod.ts
+index c100eda..9b01667 100644
+--- a/quartz/plugins/transformers/lastmod.ts
++++ b/quartz/plugins/transformers/lastmod.ts
+@@ -3,9 +3,10 @@ import path from "path"
+ import { Repository } from "@napi-rs/simple-git"
+ import { QuartzTransformerPlugin } from "../types"
+ import chalk from "chalk"
++import { execSync } from 'child_process';
+ 
+ export interface Options {
+-  priority: ("frontmatter" | "git" | "filesystem")[]
++  priority: ("frontmatter" | "git" | "filesystem" | "submodule")[]
+ }
+ 
+ const defaultOptions: Options = {
+@@ -73,6 +74,23 @@ export const CreatedModifiedDate: QuartzTransformerPlugin<Partial<Options>> = (u
+                     ),
+                   )
+                 }
++              } else if (source === "submodule") {
++                try {
++                    // Command to get the last modified date
++                    let command = `git -C content/ log -1 --format=%cd -- ${file.data.relativePath!}`;
++                    let result = execSync(command).toString().trim();
++                    modified ||= result; // Return the last modified date
++
++                    // Command to get the creation date
++                    // Note: creation date might be incorrect from git, better to take it from frontmatter
++                    // command = `git -C content/ log --diff-filter=A --format=%cd -- ${file.data.relativePath!}`;
++                    // result = execSync(command).toString().trim();
++                    // created ||= result; // Return the last modified date
++                } catch (error) {
++                    console.log(chalk.yellow(
++                        `\nWarning: ${file.data.filePath!} date is not available in submodule 'content'`,
++                    ))
++                }
+               }
+             }
+ 
