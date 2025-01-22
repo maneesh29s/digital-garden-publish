@@ -18,6 +18,7 @@ const config: QuartzConfig = {
     baseUrl: "https://maneesh29s.github.io/digital-garden-publish/",
     ignorePatterns: ["private", "templates", "**/README.md", ".obsidian", "notebooks", "scripts", ".gitignore"],
     defaultDateType: "created",
+    generateSocialImages: false,
     theme: {
       fontOrigin: "googleFonts",
       cdnCaching: true,
